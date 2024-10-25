@@ -1,3 +1,5 @@
+![Logo](https://raw.githubusercontent.com/dbuntyz/SpringBoot/refs/heads/main/Project-Image.png)
+
 # Basic Weather Application
 
 This is a basic weather application created using **Spring Boot**. The application allows users to check weather information, showcasing how to build a web application with Java and Spring Boot.
