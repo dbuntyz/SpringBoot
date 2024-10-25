@@ -24,22 +24,15 @@ FROM eclipse-temurin:17-jre-jammy
 # Set the working directory
 WORKDIR /app
 
-# Copy the JAR file and extract layers
+# Copy the JAR file to the image
 COPY --from=build /app/target/*.jar app.jar
-RUN java -Djarmode=layertools -jar app.jar extract --destination ./extracted
 
 # Create a non-privileged user
 RUN adduser --disabled-password --gecos "" appuser
 USER appuser
 
-# Copy the extracted files
-COPY --from=build /app/extracted/dependencies/ ./dependencies/
-COPY --from=build /app/extracted/spring-boot-loader/ ./spring-boot-loader/
-COPY --from=build /app/extracted/snapshot-dependencies/ ./snapshot-dependencies/
-COPY --from=build /app/extracted/application/ ./application/
-
 # Expose the application port
 EXPOSE 8080
 
 # Set the entry point for the application
-ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
