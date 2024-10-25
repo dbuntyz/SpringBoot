@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Title -->
+        <div class="title">Weather App</div>
+
+        <!-- Weather Information and Input Form -->
+        <div class="weather-info-container">
+            <!-- Input Form -->
+            <div class="input-container">
+                <form action="/weather" method="get">
+                    <input type="text" name="city" placeholder="Enter city" required>
+                    <button type="submit">Get Weather</button>
+                </form>
+            </div>
+
+            <!-- Weather Details Section -->
+            <div class="weather-details">
+                <h2>Weather Information</h2>
+
+                <!-- Display weather info when available -->
+                <div th:if="${weatherResponse}">
+                    <p>Temperature: <span th:text="${weatherResponse.currentCondition[0].tempC}"></span>°C</p>
+                    <p>Description: <span th:text="${weatherResponse.currentCondition[0].weatherDesc[0].value}"></span></p>
+                </div>
+
+                <!-- Display error message if applicable -->
+                <div th:if="${error}">
+                    <p style="color: red;" th:text="${error}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="/js/scripts.js"></script>
+</body>
+</html>
