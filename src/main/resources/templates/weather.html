@@ -1,0 +1,34 @@
+<!-- src/main/resources/templates/weather.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Weather Report</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <h1>Weather Report for <span th:text="${weatherResponse.currentCondition[0].weatherDesc[0].value}"></span></h1>
+    <div th:if="${weatherResponse.currentCondition}">
+        <h2>Current Temperature: <span th:text="${weatherResponse.currentCondition[0].tempC}"></span> °C</h2>
+    </div>
+
+    <h2>Forecast for the next 3 days:</h2>
+    <div>
+        <div th:each="forecast : ${weatherResponse.weather}">
+            <div class="weather-card">
+                <h3 th:text="${forecast.date}"></h3>
+                <p>Max Temp: <span th:text="${forecast.maxTempC}"></span> °C</p>
+                <p>Min Temp: <span th:text="${forecast.minTempC}"></span> °C</p>
+                <p>Average Temp: <span th:text="${forecast.avgTempC}"></span> °C</p>
+                <p>Description: <span th:text="${forecast.weatherDesc[0].value}"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${error}">
+        <h2>Error:</h2>
+        <p th:text="${error}"></p>
+    </div>
+
+    <a href="/">Go back</a>
+</body>
+</html>
